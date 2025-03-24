@@ -7,20 +7,41 @@ body {
     min-height: 100vh;
     background: #1a1a1a;
     font-family: Arial, sans-serif;
+<<<<<<< HEAD
+=======
+    overflow: hidden; /* 防止滾動 */
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
 }
 
 .game-container {
     position: relative;
+<<<<<<< HEAD
 }
 
 canvas {
     border: 2px solid #333;
     background: #000;
     cursor: none;
+=======
+    width: 100%;
+    height: 100vh;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    cursor: none;
+    touch-action: none; /* 防止移動設備的默認觸摸行為 */
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
 }
 
 .score, .lives {
     position: absolute;
+<<<<<<< HEAD
     top: 20px;
     color: white;
     font-size: 24px;
@@ -33,6 +54,24 @@ canvas {
 
 .lives {
     right: 20px;
+=======
+    top: max(env(safe-area-inset-top, 20px) + 20px, 40px); /* 增加上邊距 */
+    color: white;
+    font-size: clamp(16px, 4vw, 24px);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    padding: 10px 15px; /* 添加內邊距 */
+    background: rgba(0, 0, 0, 0.3); /* 添加半透明背景 */
+    border-radius: 8px; /* 圓角 */
+}
+
+.score {
+    left: max(env(safe-area-inset-left, 20px) + 20px, 40px); /* 增加左邊距 */
+}
+
+.lives {
+    right: max(env(safe-area-inset-right, 20px) + 20px, 40px); /* 增加右邊距 */
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
 }
 
 .game-over {
@@ -45,6 +84,10 @@ canvas {
     border-radius: 10px;
     text-align: center;
     color: white;
+<<<<<<< HEAD
+=======
+    z-index: 2;
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
 }
 
 .hidden {
@@ -52,8 +95,13 @@ canvas {
 }
 
 button {
+<<<<<<< HEAD
     padding: 10px 20px;
     font-size: 18px;
+=======
+    padding: clamp(8px, 2vw, 20px) clamp(16px, 4vw, 40px);
+    font-size: clamp(14px, 3vw, 18px);
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
     background: #4CAF50;
     border: none;
     color: white;
@@ -65,3 +113,14 @@ button {
 button:hover {
     background: #45a049;
 }
+<<<<<<< HEAD
+=======
+
+/* 移動設備優化 */
+@media (max-width: 768px) {
+    .game-over {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)

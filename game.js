@@ -1,9 +1,21 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+<<<<<<< HEAD
 // Set canvas size
 canvas.width = 800;
 canvas.height = 600;
+=======
+// 設置 canvas 大小為視窗大小
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+// 初始化和監聽視窗大小變化
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
 
 // Game state
 let score = 0;
@@ -34,19 +46,79 @@ class GameObject {
         this.size = 60; // 初始大小         
         this.sliced = false;            
         this.slicedPieces = [];     
+<<<<<<< HEAD
+=======
+        this.juiceParticles = []; // 噴汁粒子
+        this.juiceColor = this.getJuiceColor(); // 根據水果類型設置汁液顏色
+    }
+
+    getJuiceColor() {
+        // 根據水果類型返回對應的汁液顏色
+        const colors = {
+            '🍎': '#ff0000',
+            '🍊': '#ffa500',
+            '🍉': '#ff6b6b',
+            '🍇': '#6f2da8',
+            '🍓': '#ff4d4d',
+            '🍐': '#a0db8e',
+            '🍌': '#ffeb3b',
+            '💣': '#000000'
+        };
+        return colors[this.type] || '#ffffff';
+    }
+
+    createJuiceParticles() {
+        // 創建噴汁粒子
+        const particleCount = 20;
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.random() * Math.PI * 2);
+            const speed = Math.random() * 5 + 2;
+            const particle = {
+                x: this.x,
+                y: this.y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed - 2,
+                size: Math.random() * 4 + 2,
+                alpha: 1,
+                gravity: 0.1
+            };
+            this.juiceParticles.push(particle);
+        }
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
     }
 
     update() {
         if (this.sliced) {
+<<<<<<< HEAD
+=======
+            // 更新切片
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
             this.slicedPieces = this.slicedPieces.filter(piece => {
                 piece.x += piece.vx;
                 piece.y += piece.vy;
                 piece.vy += this.gravity;
                 piece.rotation += piece.rotationSpeed;
+<<<<<<< HEAD
                 piece.alpha -= 0.02;
                 return piece.alpha > 0;
             });
             return this.slicedPieces.length > 0;
+=======
+                piece.alpha -= 0.01; // 降低透明度衰減速度
+                return piece.alpha > 0;
+            });
+
+            // 更新噴汁粒子
+            this.juiceParticles = this.juiceParticles.filter(particle => {
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.vy += particle.gravity;
+                particle.alpha -= 0.02;
+                return particle.alpha > 0;
+            });
+
+            return this.slicedPieces.length > 0 || this.juiceParticles.length > 0;
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
         }
 
         this.velocityY += this.gravity;
@@ -58,6 +130,10 @@ class GameObject {
 
     draw() {
         if (this.sliced) {
+<<<<<<< HEAD
+=======
+            // 繪製切片
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
             this.slicedPieces.forEach(piece => {
                 ctx.save();
                 ctx.translate(piece.x, piece.y);
@@ -69,6 +145,20 @@ class GameObject {
                 ctx.fillText(piece.type, 0, 0);
                 ctx.restore();
             });
+<<<<<<< HEAD
+=======
+
+            // 繪製噴汁粒子
+            ctx.save();
+            this.juiceParticles.forEach(particle => {
+                ctx.beginPath();
+                ctx.globalAlpha = particle.alpha;
+                ctx.fillStyle = this.juiceColor;
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.restore();
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
         } else {
             ctx.save();
             ctx.translate(this.x, this.y);
@@ -84,6 +174,7 @@ class GameObject {
     slice() {
         if (!this.sliced) {
             this.sliced = true;
+<<<<<<< HEAD
             const piece1 = {
                 x: this.x,
                 y: this.y,
@@ -93,10 +184,24 @@ class GameObject {
                 rotationSpeed: this.rotationSpeed - 0.1,
                 type: this.type,
                 alpha: 1, // 初始透明度
+=======
+            // 創建切片效果
+            const angle = Math.random() * Math.PI / 4 - Math.PI / 8; // 隨機切割角度
+            const piece1 = {
+                x: this.x,
+                y: this.y,
+                vx: this.velocityX - Math.cos(angle) * 3,
+                vy: this.velocityY - Math.sin(angle) * 3,
+                rotation: this.rotation,
+                rotationSpeed: this.rotationSpeed - 0.1,
+                type: this.type,
+                alpha: 1
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
             };
             const piece2 = {
                 x: this.x,
                 y: this.y,
+<<<<<<< HEAD
                 vx: this.velocityX + 2,
                 vy: this.velocityY - 2,
                 rotation: this.rotation,
@@ -105,6 +210,19 @@ class GameObject {
                 alpha: 1, // 初始透明度
             };
             this.slicedPieces = [piece1, piece2];
+=======
+                vx: this.velocityX + Math.cos(angle) * 3,
+                vy: this.velocityY + Math.sin(angle) * 3,
+                rotation: this.rotation,
+                rotationSpeed: this.rotationSpeed + 0.1,
+                type: this.type,
+                alpha: 1
+            };
+            this.slicedPieces = [piece1, piece2];
+            
+            // 創建噴汁效果
+            this.createJuiceParticles();
+>>>>>>> 201d4ac (更新 game.js 和 style.css 和index.html，優化遊戲效果)
         }
     }
 
